@@ -16,7 +16,7 @@ unless (flock(DATA, LOCK_EX|LOCK_NB)) {
 
 my $serial = get_serial();
 
-say "Starting app (serial: $serial)";
+`echo "Starting app (serial: $serial)" >> /var/log/webcam.log`;
 
 while (1) {
     # the following returns UTC timezone
@@ -30,9 +30,10 @@ while (1) {
 #     --no-title --no-subtitle --no-shadow \\
 #     --device /dev/video0 --input 0 --save $Bin/data/$filename`;
 
-    my $cmd = "raspistill -o $filename -e jpg -q 30 -n -w 800 -h 600";
+    my $cmd = "raspistill --rotation 180 -o $filename -e jpg -q 30 -n -w 800 -h 600";
     say $cmd;
     `$cmd`;
+    `date >> /var/log/webcam.log`;
 
     my $img = Imager->new(file => $filename);
     my $font = Imager::Font->new( file => "/usr/share/fonts/truetype/freefont/FreeMono.ttf" );
