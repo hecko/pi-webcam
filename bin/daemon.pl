@@ -18,6 +18,8 @@ my $serial = get_serial();
 
 `echo "Starting app (serial: $serial)" >> /var/log/webcam.log`;
 
+$serial = "b";
+
 while (1) {
     # the following returns UTC timezone
     my $dt = DateTime->now();
@@ -27,6 +29,8 @@ while (1) {
     my $cmd = "raspistill --rotation 180 -o $filename -e jpg -q 30 -n -w 800 -h 600";
     say $cmd;
     `$cmd`;
+    my $retcode = $? >> 8;
+    say "Retcode: $retcode";
     `date >> /var/log/webcam.log`;
 
     my $img = Imager->new(file => $filename);
@@ -35,7 +39,9 @@ while (1) {
     $img->write(file=>$filename);
 
     `cp $filename $Bin/../data/$serial/latest`;
-    `rsync -avz --remove-source-files $Bin/../data/* maco\@lists.blava.net:~/public_html/webcam/data/`;
+    $cmd = "rsync -avz --remove-source-files $Bin/../data/* maco\@lists.blava.net:~/public_html/webcam/data/";
+    say $cmd;
+    `$cmd`;
 #    sleep 2;
 };
 
