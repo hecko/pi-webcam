@@ -24,12 +24,6 @@ while (1) {
     my $path = $Bin."/../data/".$serial."/".$dt->year()."/".$dt->month()."/".$dt->day()."/";
     my $filename = $path.$dt->iso8601().'UTC.jpg';
     `mkdir -p $path`;
-#    `uvccapture -m -o$Bin/data/$filename > /dev/null`;
-
-#    `fswebcam --info $now --no-timestamp --skip 5 --delay 2 \\
-#     --no-title --no-subtitle --no-shadow \\
-#     --device /dev/video0 --input 0 --save $Bin/data/$filename`;
-
     my $cmd = "raspistill --rotation 180 -o $filename -e jpg -q 30 -n -w 800 -h 600";
     say $cmd;
     `$cmd`;
