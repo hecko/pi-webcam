@@ -23,6 +23,7 @@ sub get_serial {
         my ($in) = @_;
         chomp($in);
         $in =~ s/(:)|(\.)//g;
+        $in =~ s/^0+//;
         $in = lc($in);
         return $in;
     }

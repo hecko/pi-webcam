@@ -18,8 +18,6 @@ my $serial = get_serial();
 
 `echo "Starting app (serial: $serial)" >> /var/log/webcam.log`;
 
-$serial = "b";
-
 while (1) {
     # the following returns UTC timezone
     my $dt = DateTime->now();
