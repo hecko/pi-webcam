@@ -8,4 +8,4 @@ use Utils;
 
 my $serial = get_serial();
 
-say "$serial";
+say "Serial to use: $serial";
