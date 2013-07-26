@@ -1,2 +1,2 @@
-* *	* * *	root	/opt/webcam/bin/snapshot.pl >> /opt/webcam/log/snapshot.log 2>&1
-* *	* * *	root	/opt/webcam/bin/upload.pl >> /opt/webcam/log/upload.log 2>&1
+* *	* * *	root	/opt/webcam/bin/snapshot.pl >> /opt/webcam/log/cron/snapshot.log 2>&1
+* *	* * *	root	/opt/webcam/bin/upload.pl >> /opt/webcam/log/cron/upload.log 2>&1
