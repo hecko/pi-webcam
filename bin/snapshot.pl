@@ -31,8 +31,11 @@ while (1) {
 
     my $img = Imager->new( file => $filename );
     my $font = Imager::Font->new( file => "/usr/share/fonts/truetype/freefont/FreeMono.ttf" );
-    $img->box( xmax => 205, ymax => 12, color => 'black', filled => 1 );
-    $img->string( x => 2, y => 11, string => $dt->iso8601().($dt->offset()/3600), font => $font, size => 15, aa => 1, color => 'white' );
+    $img->box( xmax  => 205,     ymax => 12, 
+               color => 'black', filled => 1 );
+    $img->string( x     => 2,     y    => 11, string => $dt->iso8601().($dt->offset()/3600), 
+                  font  => $font, size => 15, aa     => 1, 
+                  color => 'white' );
     $img->write( file=>$filename );
 
     run("cp $filename $Bin/../data/$serial/latest");

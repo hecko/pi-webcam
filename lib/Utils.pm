@@ -31,12 +31,12 @@ sub get_serial {
     return $crypt;
 }
 
-sub run{
+sub run {
     my $cmd = shift;
     say $cmd;
     my $cmd_out = `$cmd`;
     my $retcode = $? >> 8;
-    die "Retcode $retcode when running $cmd: $cmd_out" if ($retcode != 0);
+    warn "Retcode $retcode when running $cmd: $cmd_out" if ($retcode != 0);
     return $cmd_out;
 }
 
