@@ -1,0 +1,5 @@
+creates reverse tunnel to lists
+
+ssh -nNf -o ControlPath=/tmp/ssh_tunnel -o ControlMaster=auto -R 22023:localhost:22 maco@lists.blava.net
+ssh -S /tmp/ssh_tunnel -O check localhost
+ssh -S /tmp/ssh_tunnel -O exit localhost
