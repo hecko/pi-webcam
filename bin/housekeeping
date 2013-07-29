@@ -22,7 +22,7 @@ my $files = run("find $Bin/../data -name \"*.jpg\"");
 for my $file (split(/\n/, $files)) {
     my @stat = stat($file);
     my $age = $dt->epoch()-$stat[9];
-    if ($age > 3600) {
+    if ($age > (3600*24*2)) {
         say "Deleting $file ($age)";
         die "Problem deleting file $file" if (!unlink($file));
     } else {

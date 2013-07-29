@@ -1,2 +1,3 @@
-* *	* * *	root	/opt/webcam/bin/snapshot >> /opt/webcam/log/cron/snapshot.log 2>&1
-* *	* * *	root	/opt/webcam/bin/upload >> /opt/webcam/log/cron/upload.log 2>&1
+*  * * * *	root	/opt/webcam/bin/snapshot >> /opt/webcam/log/cron/snapshot.log 2>&1
+*  * * * *	root	/opt/webcam/bin/upload >> /opt/webcam/log/cron/upload.log 2>&1
+10 * * * *  root    /opt/webcam/bin/housekeeping >> /opt/webcam/log/cron/housekeeping.log 2>&1
