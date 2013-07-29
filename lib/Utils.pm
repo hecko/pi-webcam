@@ -15,20 +15,14 @@ sub get_serial {
     say "MAC:        $mac";
     say "CPU serial: $cpu";
 
-    my $crypt = crypt($cpu,$mac);
-    $crypt =~ s/(\.)|(\/)//g;
-    $crypt = lc($crypt);
-
     sub set_input {
         my ($in) = @_;
         chomp($in);
-        $in =~ s/(:)|(\.)//g;
-        $in =~ s/^0+//;
-        $in = lc($in);
         return $in;
     }
 
-    return $crypt;
+    $cpu =~ s/^0+//;
+    return $cpu;
 }
 
 sub run {

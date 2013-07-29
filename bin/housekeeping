@@ -13,6 +13,9 @@ unless (flock(DATA, LOCK_EX|LOCK_NB)) {
     exit(1);
 }
 
+# TODO this should be re-written to keep the most recent 2.5 or so GB of data
+# and delete everything older than that
+
 my $dt = DateTime->now();
 
 my $files = run("find $Bin/../data -name \"*.jpg\"");
