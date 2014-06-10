@@ -11,15 +11,13 @@ use Imager;
 
 our $LocalTZ = DateTime::TimeZone->new( name => 'local' );
 
-unless (flock(DATA, LOCK_EX|LOCK_NB)) {
-    print "$0 is already running. Exiting.\n";
-    exit(1);
-}
+exit unless flock(DATA, LOCK_EX|LOCK_NB);
 
 my $serial = get_serial();
 
 # turn off OK leds so it is not reflected in the lens
 `echo none >/sys/class/leds/led0/trigger`;
+`echo 0 >/sys/class/leds/led0/brightness`;
 
 say "Starting app (serial: $serial)";
 
@@ -42,6 +40,7 @@ while (1) {
     $img->write( file=>$filename );
 
     run("cp $filename $Bin/../data/$serial/latest");
+    sleep(20); # sleep for X seconds
 };
 
 __DATA__

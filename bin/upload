@@ -12,9 +12,7 @@ unless (flock(DATA, LOCK_EX|LOCK_NB)) {
     exit(1);
 }
 
-while (1) {
-    run("rsync --delay-updates -avz $Bin/../data/* maco\@lists.blava.net:~/public_html/webcam/data/");
-};
+run("rsync -avz $Bin/../data/* maco\@lists.blava.net:~/public_html/webcam/data/");
 
 __DATA__
 This exists so flock() code above works.
