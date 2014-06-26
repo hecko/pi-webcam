@@ -22,25 +22,29 @@ my $serial = get_serial();
 say "Starting app (serial: $serial)";
 
 while (1) {
-    my $utc = DateTime->now();
-    my $dt = DateTime->now( time_zone => $LocalTZ );
-
-    my $path = $Bin."/../data/".$serial."/".$utc->year()."/".$utc->month()."/".$utc->day()."/".$utc->hour."/";
+    my $utc      = DateTime->now();
+    my $dt       = DateTime->now( time_zone => $LocalTZ );
+    my $path     = $Bin."/../data/".$serial."/".$utc->year()."/".$utc->month()."/".$utc->day()."/";
     my $filename = $path.$utc->iso8601().'.jpg';
+
     run("mkdir -p $path");
-    run("raspistill --rotation 180 -o $filename -e jpg -q 50 -n -w 800 -h 600");
+    run("raspistill --rotation 180 -o $filename -e jpg -q 60 -n -w 1024 -h 768");
 
     my $img = Imager->new( file => $filename );
     my $font = Imager::Font->new( file => "/usr/share/fonts/truetype/freefont/FreeMono.ttf" );
-    $img->box( xmax  => 290,     ymax => 12,
-               color => 'black', filled => 1 );
-    $img->string( x     => 2,     y    => 11, string => $dt->strftime("%a, %d %b %Y %H:%M:%S %z"),
-                  font  => $font, size => 15, aa     => 1,
-                  color => 'white' );
+    $img->box( xmax   => 290,
+               ymax   => 12,
+               color  => 'black',
+               filled => 1 );
+    $img->string( x => 2, y => 11,
+                  string => $dt->strftime("%a, %d %b %Y %H:%M:%S %z"),
+                  font   => $font,
+                  size   => 15,
+                  aa     => 1,
+                  color  => 'white' );
     $img->write( file=>$filename );
 
-    run("cp $filename $Bin/../data/$serial/latest");
-    sleep(20); # sleep for X seconds
+    sleep(180); # sleep for X seconds
 };
 
 __DATA__
