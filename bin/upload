@@ -7,12 +7,18 @@ use common::sense;
 use Fcntl qw(:flock);
 use Utils;
 
+my $bwlimit = "--bwlimit=10"; # in kBps
+
 unless (flock(DATA, LOCK_EX|LOCK_NB)) {
     print "$0 is already running. Exiting.\n";
     exit(1);
 }
 
-run("rsync -avz $Bin/../data/* maco\@lists.blava.net:~/public_html/webcam/data/");
+my $cmd = "rsync -avz $bwlimit $Bin/../data/* maco\@lists.blava.net:~/public_html/webcam/data/";
+
+print "Running: " . $cmd . "\n";
+
+run($cmd);
 
 __DATA__
 This exists so flock() code above works.
